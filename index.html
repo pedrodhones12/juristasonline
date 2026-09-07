@@ -1,1 +1,28 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Juristas Online</title></head><body><div id="root"></div><script type="module" src="./src/main.jsx"></script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juristas Online</title>
+  <style>
+    html,body,#root{margin:0;min-height:100%;width:100%}
+    body{background:#f8f9fb}
+    #boot{min-height:100vh;display:grid;place-items:center;font-family:Arial,sans-serif;color:#0f1729}
+    #boot div{text-align:center;padding:24px}
+  </style>
+</head>
+<body>
+  <div id="root">
+    <div id="boot"><div><strong>Juristas Online</strong><p>Carregando a plataforma...</p></div></div>
+  </div>
+  <script>
+    window.addEventListener('error',function(e){
+      var root=document.getElementById('root');
+      if(root && root.querySelector('#boot')) root.innerHTML='<div id="boot"><div><strong>Juristas Online</strong><p>Não foi possível carregar a plataforma.</p><button onclick="location.reload()">Recarregar</button></div></div>';
+      console.error(e.error||e.message);
+    });
+    window.addEventListener('unhandledrejection',function(e){console.error(e.reason);});
+  </script>
+  <script type="module" src="./src/main.jsx"></script>
+</body>
+</html>

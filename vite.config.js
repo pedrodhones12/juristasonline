@@ -1,17 +1,13 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
+const DEFAULT_SUPABASE_URL = 'https://qwgmgygccjgoegzcdrks.supabase.co';
+const DEFAULT_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_yEEV0hD-YZNYz78685r_Hw_YanRRjY9';
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const rawUrl = (env.VITE_SUPABASE_URL || '').trim();
-  const rawKey = (env.VITE_SUPABASE_PUBLISHABLE_KEY || '').trim();
-
-  // Aceita os Secrets mesmo se URL e chave tiverem sido trocados.
-  const values = [rawUrl, rawKey].filter(Boolean);
-  const detectedUrl = values.find(v => /^https?:\/\/[^\s]+\.supabase\.co\/?$/i.test(v));
-  const detectedProjectRef = values.find(v => /^[a-z0-9]{15,}$/i.test(v) && !/^https?:\/\//i.test(v));
-  const supabaseUrl = detectedUrl || (detectedProjectRef ? `https://${detectedProjectRef}.supabase.co` : '');
-  const supabaseKey = values.find(v => v !== detectedUrl && v !== detectedProjectRef && !/^https?:\/\//i.test(v)) || (detectedProjectRef && detectedUrl ? detectedProjectRef : '');
+  const supabaseUrl = (env.VITE_SUPABASE_URL || DEFAULT_SUPABASE_URL).trim();
+  const supabaseKey = (env.VITE_SUPABASE_PUBLISHABLE_KEY || DEFAULT_SUPABASE_PUBLISHABLE_KEY).trim();
 
   return {
     plugins: [react()],

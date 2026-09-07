@@ -4,31 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Juristas Online</title>
-  <link rel="stylesheet" href="./src/styles.css">
   <style>
     html,body,#root{margin:0;min-height:100%;width:100%}
     body{background:#f8f9fb}
-    #boot{min-height:100vh;display:grid;place-items:center;font-family:Arial,sans-serif;color:#0f1729}
-    #boot div{text-align:center;padding:24px}
   </style>
 </head>
 <body>
-  <div id="root">
-    <div id="boot"><div><strong>Juristas Online</strong><p>Carregando a plataforma...</p></div></div>
-  </div>
-  <script>
-    window.addEventListener('error',function(e){
-      var root=document.getElementById('root');
-      if(root && root.querySelector('#boot')) root.innerHTML='<div id="boot"><div><strong>Juristas Online</strong><p>Não foi possível carregar a plataforma.</p><button onclick="location.reload()">Recarregar</button></div></div>';
-      console.error(e.error||e.message);
-    });
-    window.addEventListener('unhandledrejection',function(e){console.error(e.reason);});
-  </script>
-  <script>
-    window.__SUPABASE_URL__='https://qwgmgygccjgoegzcdrks.supabase.co';
-    window.__SUPABASE_PUBLISHABLE_KEY__='sb_publishable_yEEV0hD-YZNYz78685r_Hw_YanRRjY9';
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
-  <script type="text/babel" data-type="module" src="./src/main.jsx"></script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

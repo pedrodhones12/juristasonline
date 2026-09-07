@@ -6,21 +6,16 @@ export default defineConfig(({ mode }) => {
   const rawUrl = (env.VITE_SUPABASE_URL || '').trim();
   const rawKey = (env.VITE_SUPABASE_PUBLISHABLE_KEY || '').trim();
 
-  // Evita que valores trocados nos Secrets derrubem toda a aplicação.
-  // Se o campo URL receber apenas o project-ref, normalizamos para a URL correta.
-  const supabaseUrl = rawUrl.startsWith('http')
-    ? rawUrl
-    : rawUrl
-      ? `https://${rawUrl.replace(/\/$/, '')}.supabase.co`
-      : '';
-
-  // Uma URL no campo da chave indica que os Secrets foram invertidos.
-  // Nesse caso, deixamos a autenticação desativada em vez de quebrar o app.
-  const supabaseKey = rawKey.startsWith('http') ? '' : rawKey;
+  // Aceita os Secrets mesmo se URL e chave tiverem sido trocados.
+  const values = [rawUrl, rawKey].filter(Boolean);
+  const detectedUrl = values.find(v => /^https?:\/\/[^\s]+\.supabase\.co\/?$/i.test(v));
+  const detectedProjectRef = values.find(v => /^[a-z0-9]{15,}$/i.test(v) && !/^https?:\/\//i.test(v));
+  const supabaseUrl = detectedUrl || (detectedProjectRef ? `https://${detectedProjectRef}.supabase.co` : '');
+  const supabaseKey = values.find(v => v !== detectedUrl && v !== detectedProjectRef && !/^https?:\/\//i.test(v)) || (detectedProjectRef && detectedUrl ? detectedProjectRef : '');
 
   return {
     plugins: [react()],
-    base: './',
+    base: '/juristasonline/',
     define: {
       'import.meta.env.VITE_SUPABASE_URL': JSON.stringify(supabaseUrl),
       'import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY': JSON.stringify(supabaseKey),

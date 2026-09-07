@@ -1,7 +1,6 @@
-import React,{useEffect,useState}from'react';
-import{createRoot}from'react-dom/client';
-import{createClient}from'@supabase/supabase-js';
-import'./styles.css';
+import React,{useEffect,useState}from'https://esm.sh/react@18.3.1';
+import{createRoot}from'https://esm.sh/react-dom@18.3.1/client';
+import{createClient}from'https://esm.sh/@supabase/supabase-js@2';
 
 const url=import.meta.env.VITE_SUPABASE_URL,key=import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 const supabase=url&&key?createClient(url,key):null;

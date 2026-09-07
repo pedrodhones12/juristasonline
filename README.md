@@ -1,13 +1,11 @@
 # Juristas Online
 
-Plataforma para criação de sites profissionais especializados para advogados e escritórios de advocacia.
+Plataforma para criação de sites profissionais para advogados e escritórios.
 
 ## MVP
-- Landing page institucional
-- Seleção de nichos jurídicos
-- Galeria de temas
-- Dashboard demonstrativo
+- Landing page
+- Nichos jurídicos
+- Temas profissionais
 - Fluxo inicial de criação de site
 
-## Stack
-HTML, CSS e JavaScript (primeira versão).
+Tecnologias: HTML, CSS e JavaScript.
